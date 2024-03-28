@@ -77,6 +77,11 @@ iters = 3000
 # plt.show()
 
 # student grade
-studata_train=pd.read_csv('TrainSet.csv')
-X=studata_train.drop('Machine learning grade point',axis=1).values
-print(X[1])
+studata_train=pd.read_csv('TrainSet.csv').fillna(0)
+studata_test=pd.read_csv('TestSet.csv').fillna(0)
+X_train=studata_train.drop('Machine learning grade point',axis=1).values
+y_train=studata_train['Machine learning grade point'].values
+X_valid=studata_test.drop('Machine learning grade point',axis=1).values
+y_valid=studata_test['Machine learning grade point'].values
+
+print(y_valid)
