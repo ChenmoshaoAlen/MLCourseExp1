@@ -81,6 +81,7 @@ iters = 3000
 studata_train=pd.read_csv('TrainSet.csv').fillna(0)
 studata_test=pd.read_csv('TestSet.csv').fillna(0)
 
+# 
 scaler=MinMaxScaler()
 studata_train = pd.DataFrame(scaler.fit_transform(studata_train), columns=studata_train.columns)
 studata_test = pd.DataFrame(scaler.fit_transform(studata_test), columns=studata_test.columns)
@@ -94,8 +95,8 @@ y_train = y_train.reshape(len(y_train),1)
 y_valid = y_valid.reshape(len(y_valid),1)#转化为1列
 
 theta = np.random.normal(size=(28,1),loc=0,scale=1)
-alpha = 0.0005
-iters = 3000
+alpha = 0.001
+iters = 300
 opt_theta, loss_train, loss_valid = random_descent(X_train, y_train, theta, alpha, iters, X_valid, y_valid)
 print(loss_train.min())
 print(loss_valid.min())
