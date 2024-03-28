@@ -88,18 +88,18 @@ studata_test = pd.DataFrame(scaler.fit_transform(studata_test), columns=studata_
 
 X_train=studata_train.drop('Machine learning grade point',axis=1).values
 y_train=studata_train['Machine learning grade point'].values
-X_valid=studata_test.drop('Machine learning grade point',axis=1).values
-y_valid=studata_test['Machine learning grade point'].values
+X_test=studata_test.drop('Machine learning grade point',axis=1).values
+y_test=studata_test['Machine learning grade point'].values
 
 y_train = y_train.reshape(len(y_train),1)
-y_valid = y_valid.reshape(len(y_valid),1)#转化为1列
+y_test = y_test.reshape(len(y_test),1)#转化为1列
 
 theta = np.random.normal(size=(28,1),loc=0,scale=1)
 alpha = 0.001
 iters = 300
-opt_theta, loss_train, loss_valid = random_descent(X_train, y_train, theta, alpha, iters, X_valid, y_valid)
+opt_theta, loss_train, loss_test = random_descent(X_train, y_train, theta, alpha, iters, X_test, y_test)
 print(loss_train.min())
-print(loss_valid.min())
+print(loss_test.min())
 # 作图
 iteration = np.arange(0, iters, step = 1)
 fig, ax = plt.subplots(figsize = (12,8))
@@ -107,6 +107,6 @@ ax.set_title('zxlExp1')
 ax.set_xlabel('iteration')
 ax.set_ylabel('loss')
 plt.plot(iteration, loss_train, 'b', label='Train')
-plt.plot(iteration, loss_valid, 'r', label='Valid')
+plt.plot(iteration, loss_test, 'r', label='test')
 plt.legend()
 plt.show()
