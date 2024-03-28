@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import sklearn.datasets as sd
+from sklearn.preprocessing import MinMaxScaler
 import sklearn.model_selection as sms
 import matplotlib.pyplot as plt
 # import math
@@ -79,9 +80,32 @@ iters = 3000
 # student grade
 studata_train=pd.read_csv('TrainSet.csv').fillna(0)
 studata_test=pd.read_csv('TestSet.csv').fillna(0)
+
+scaler=MinMaxScaler()
+studata_train = pd.DataFrame(scaler.fit_transform(studata_train), columns=studata_train.columns)
+studata_test = pd.DataFrame(scaler.fit_transform(studata_test), columns=studata_test.columns)
+
 X_train=studata_train.drop('Machine learning grade point',axis=1).values
 y_train=studata_train['Machine learning grade point'].values
 X_valid=studata_test.drop('Machine learning grade point',axis=1).values
 y_valid=studata_test['Machine learning grade point'].values
 
-print(y_valid)
+y_train = y_train.reshape(len(y_train),1)
+y_valid = y_valid.reshape(len(y_valid),1)#转化为1列
+
+theta = np.random.normal(size=(28,1),loc=0,scale=1)
+alpha = 0.0005
+iters = 3000
+opt_theta, loss_train, loss_valid = random_descent(X_train, y_train, theta, alpha, iters, X_valid, y_valid)
+print(loss_train.min())
+print(loss_valid.min())
+# 作图
+iteration = np.arange(0, iters, step = 1)
+fig, ax = plt.subplots(figsize = (12,8))
+ax.set_title('zxlExp1')
+ax.set_xlabel('iteration')
+ax.set_ylabel('loss')
+plt.plot(iteration, loss_train, 'b', label='Train')
+plt.plot(iteration, loss_valid, 'r', label='Valid')
+plt.legend()
+plt.show()
