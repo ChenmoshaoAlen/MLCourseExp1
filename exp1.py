@@ -4,7 +4,6 @@ import sklearn.datasets as sd
 from sklearn.preprocessing import MinMaxScaler
 import sklearn.model_selection as sms
 import matplotlib.pyplot as plt
-# import math
 import random
 
 # 闭式解
@@ -25,13 +24,13 @@ def compute_loss(X, y, theta):
 def normal_equation(X, y):
     return (np.linalg.inv(X.T.dot(X))).dot(X.T).dot(y)
 
-# theta = normal_equation(X_train, y_train)
+theta = normal_equation(X_train, y_train)
 
-# loss_train = compute_loss(X_train, y_train, theta)
-# loss_valid = compute_loss(X_valid, y_valid, theta)
+loss_train = compute_loss(X_train, y_train, theta)
+loss_valid = compute_loss(X_valid, y_valid, theta)
 
-# print(loss_train)
-# print(loss_valid)
+print(loss_train)
+print(loss_valid)
 
 
 def gradient(X, y, theta):
@@ -61,21 +60,20 @@ theta = np.random.normal(size=(13,1),loc=0,scale=1)
 # 随机梯度下降
 alpha = 0.0005
 iters = 3000
-# opt_theta, loss_train, loss_valid = random_descent(X_train, y_train, theta, alpha, iters, X_valid, y_valid)
-#选取矩阵中最小的值
-# print(loss_train.min())
-# print(loss_valid.min())
+opt_theta, loss_train, loss_valid = random_descent(X_train, y_train, theta, alpha, iters, X_valid, y_valid)
+print(loss_train.min())
+print(loss_valid.min())
 
 # 作图
-# iteration = np.arange(0, iters, step = 1)
-# fig, ax = plt.subplots(figsize = (12,8))
-# ax.set_title('zxlExp1')
-# ax.set_xlabel('iteration')
-# ax.set_ylabel('loss')
-# plt.plot(iteration, loss_train, 'b', label='Train')
-# plt.plot(iteration, loss_valid, 'r', label='Valid')
-# plt.legend()
-# plt.show()
+iteration = np.arange(0, iters, step = 1)
+fig, ax = plt.subplots(figsize = (12,8))
+ax.set_title('zxlExp1')
+ax.set_xlabel('iteration')
+ax.set_ylabel('loss')
+plt.plot(iteration, loss_train, 'b', label='Train')
+plt.plot(iteration, loss_valid, 'r', label='Valid')
+plt.legend()
+plt.show()
 
 # student grade
 studata_train=pd.read_csv('TrainSet.csv').fillna(0)
